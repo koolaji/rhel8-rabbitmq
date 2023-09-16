@@ -12,8 +12,12 @@ RUN set eux; \
 	cp /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.4/plugins/rabbitmq_management-*/priv/www/cli/rabbitmqadmin /usr/local/bin/rabbitmqadmin; \
 	[ -s /usr/local/bin/rabbitmqadmin ]; \
 	chmod +x /usr/local/bin/rabbitmqadmin; \
-	rabbitmqadmin --version
-
+	rabbitmqadmin --version && \
+        rabbitmq-plugins enable   rabbitmq_prometheus
+RUN echo "ETOBVBEFXUPGETFECHSQ" >/var/lib/rabbitmq/.erlang.cookie
+RUN chown rabbitmq:rabbitmq -R  /var/lib/rabbitmq/
+RUN chmod 0700 -R  /var/lib/rabbitmq/
+VOLUME /var/lib/rabbitmq/
 EXPOSE 4369 5671 5672 15691 15692 25672 15671 15672
 
 CMD ["rabbitmq-server"]
